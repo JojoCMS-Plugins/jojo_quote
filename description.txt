@@ -1,0 +1,1 @@
+Much like articles - Displays random quotes on a page with optional Title, Author and Description and/or a full index with individual quote pages

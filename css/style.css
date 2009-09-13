@@ -1,0 +1,26 @@
+
+div.quote
+{
+    background: url(../images/quotemark-start.png) top left no-repeat;
+	padding-top: 7px;
+}
+
+
+.quotebody
+{
+	padding-bottom: 0;
+    background: url(../images/quotemark-end.png) bottom right no-repeat;
+}
+
+
+.quotecredit
+{
+	clear:left;
+	text-align: right;
+	margin-top: 7px;
+	margin-bottom: 8px;
+}
+
+.quotedescription
+{
+}
