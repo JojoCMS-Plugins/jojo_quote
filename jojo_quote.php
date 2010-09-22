@@ -156,7 +156,6 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
         $content = array();
         $language = !empty($this->page['pg_language']) ? $this->page['pg_language'] : Jojo::getOption('multilanguage-default', 'en');
         $mldata = Jojo::getMultiLanguageData();
-        $lclanguage = $mldata['longcodes'][$language];
         $languagePrefix = ( _MULTILANGUAGE ) ? Jojo::getMultiLanguageString ( $language ) : '';
         if (_MULTILANGUAGE) {
             $smarty->assign('multilangstring', $languagePrefix);
@@ -213,11 +212,9 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
             /* Get the next and previous items */
             if (Jojo::getOption('quote_next_prev') == 'yes' && $numitems >1) {
                 if (!empty($next)) {
-                    $next['url'] = self::getUrl($next[self::$idfield], $next[self::$urlfield], $next[self::$titlefield], $next[self::$langfield]);
                     $smarty->assign('nextquote', $next);
                 }
                 if (!empty($prev)) {
-                    $prev['url'] = self::getUrl($prev[self::$idfield], $prev[self::$urlfield], $prev[self::$titlefield], $prev[self::$langfield]);
                     $smarty->assign('prevquote', $prev);
                 }
             }
@@ -455,8 +452,6 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
 
             foreach($indexes as $key => $i){
                 $language = !empty($i['pg_language']) ? $i['pg_language'] : Jojo::getOption('multilanguage-default', 'en');
-                $mldata = Jojo::getMultiLanguageData();
-                $lclanguage = $mldata['longcodes'][$language];
                 $languagePrefix = ( _MULTILANGUAGE ) ? Jojo::getMultiLanguageString ( $language ) : '';
                 $urls[] = $languagePrefix . self::_getPrefix('', (_MULTILANGUAGE ? $language : '')) . '/';
             }
