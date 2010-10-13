@@ -26,7 +26,7 @@ $_provides['pluginClasses'] = array(
 if ( Jojo::tableexists ( 'lang_country' )) {
     $languages = Jojo::selectQuery("SELECT lc_code AS languageid FROM {lang_country}");
 } else {
-    $languages = Jojo::selectQuery("SELECT languageid FROM {language} WHERE active = 'yes'");
+    $languages = Jojo::selectQuery("SELECT languageid FROM {language} WHERE active = '1'");
 }
 foreach ($languages as $k => $v){
     $language = !empty($languages[$k]['languageid']) ? $languages[$k]['languageid'] : Jojo::getOption('multilanguage-default', 'en');

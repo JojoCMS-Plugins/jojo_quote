@@ -523,7 +523,7 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
         $query .= "LEFT JOIN {language} AS language ON (". self::$langfield ." = languageid) ";
         $query .= "WHERE $like";
         $query .= ($language) ? " AND ". self::$langfield ." = '$language' " : ' ';
-        $query .= "AND language.active = 'yes' ";
+        $query .= "AND language.active = '1' ";
         $query .= "AND ". self::$livefield ."<" . time() . " AND (". self::$expfield ."<=0 OR ". self::$expfield .">" . time() . ") ";
         $query .= " ORDER BY relevance DESC LIMIT 100";
 
