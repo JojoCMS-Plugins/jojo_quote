@@ -157,9 +157,7 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
         $language = !empty($this->page['pg_language']) ? $this->page['pg_language'] : Jojo::getOption('multilanguage-default', 'en');
         $mldata = Jojo::getMultiLanguageData();
         $languagePrefix = ( _MULTILANGUAGE ) ? Jojo::getMultiLanguageString ( $language ) : '';
-        if (_MULTILANGUAGE) {
-            $smarty->assign('multilangstring', $languagePrefix);
-        }
+        $smarty->assign('multilangstring', $languagePrefix);
         $items = self::getItems();
         $numitems = count($items);
 

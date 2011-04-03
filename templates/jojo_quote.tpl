@@ -11,7 +11,7 @@
         {$jojo_quote.qt_description}
     </div>
 
-{if !$onequote}<p class="links">&lt;&lt; <a href="{$indexurl}" title="back">{$pg_title} index</a>&nbsp; {if $prevquote}&lt; <a href="{$prevquote.url}" title="Previous">{$prevquote.title}</a>{/if}{if $nextquote} | <a href="{$nextquote.url}" title="Next">{$nextquote.title}</a> &gt;{/if}</p>{/if}
+{if !$onequote}<p class="links">&lt;&lt; <a href="{$indexurl}" title="back">{$pg_title}</a>&nbsp; {if $prevquote}&lt; <a href="{$prevquote.url}" title="Previous">{$prevquote.title}</a>{/if}{if $nextquote} | <a href="{$nextquote.url}" title="Next">{$nextquote.title}</a> &gt;{/if}</p>{/if}
 {if $tags}
     <p class="tags"><strong>Tags: </strong>
 {if $itemcloud}
