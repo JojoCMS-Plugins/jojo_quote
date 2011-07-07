@@ -32,6 +32,13 @@ if (count($data) == 0) {
     JOJO::insertQuery("INSERT INTO {page} SET pg_title='Quotes', pg_link='Jojo_Plugin_Admin_Edit', pg_url='admin/edit/quote', pg_parent=". JOJO::clean($_ADMIN_CONTENT_ID).", pg_order=3");
 }
 
+/* Edit Categories */
+$data = Jojo::selectQuery("SELECT * FROM {page}  WHERE pg_url='admin/edit/quotecategory'");
+if (!count($data)) {
+    echo "jojo_quote: Adding <b>Quote Page Options</b> Page to Content menu<br />";
+    Jojo::insertQuery("INSERT INTO {page} SET pg_title='Quote Page Options', pg_link='Jojo_Plugin_Admin_Edit', pg_url='admin/edit/quotecategory', pg_parent=?, pg_order=3", array($_ADMIN_CONTENT_ID));
+}
+
 /* Ensure there is a folder for uploading quote images */
 $res = JOJO::RecursiveMkdir(_DOWNLOADDIR . '/quotes');
 if ($res === true) {

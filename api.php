@@ -21,24 +21,8 @@ $_provides['pluginClasses'] = array(
         'Jojo_Plugin_Jojo_Quote' => 'Quotes - Quote Listing and View'
         );
 
-/* Register URI patterns */
-
-if ( Jojo::tableexists ( 'lang_country' )) {
-    $languages = Jojo::selectQuery("SELECT lc_code AS languageid FROM {lang_country}");
-} else {
-    $languages = Jojo::selectQuery("SELECT languageid FROM {language} WHERE active = '1'");
-}
-foreach ($languages as $k => $v){
-    $language = !empty($languages[$k]['languageid']) ? $languages[$k]['languageid'] : Jojo::getOption('multilanguage-default', 'en');
-    $prefix = Jojo_Plugin_Jojo_Quote::_getPrefix('', $language );
-    if (empty($prefix)) continue;
-Jojo::registerURI("$prefix/[action:latest]",       'Jojo_Plugin_Jojo_Quote'); // "quotes/latest/"
-Jojo::registerURI("$prefix/[id:integer]/[.*]",     'Jojo_Plugin_Jojo_Quote'); // "quotes/123/name-of-quote/"
-Jojo::registerURI("$prefix/[id:integer]",          'Jojo_Plugin_Jojo_Quote'); // "quotes/123"
-Jojo::registerURI("$prefix/p[pagenum:([0-9]+)]",   'Jojo_Plugin_Jojo_Quote'); // "quotes/p2/" for pagination of quotes
-Jojo::registerURI("$prefix/[url:string]",          'Jojo_Plugin_Jojo_Quote'); // "quotes/url"
-}
-
+/* Register URI handlers */
+Jojo::registerURI(null, 'jojo_plugin_jojo_quote', 'isUrl');
 
 /* Sitemap filter */
 Jojo::addFilter('jojo_sitemap', 'sitemap', 'jojo_quote');
@@ -47,13 +31,22 @@ Jojo::addFilter('jojo_sitemap', 'sitemap', 'jojo_quote');
 Jojo::addFilter('jojo_xml_sitemap', 'xmlsitemap', 'jojo_quote');
 
 /* Search Filter */
-Jojo::addFilter('jojo_search', 'search', 'jojo_quote');
+if (class_exists('Jojo_Plugin_Jojo_search')) {
+    Jojo::addFilter('jojo_search', 'search', 'jojo_quote');
+}
+/* Newsletter content Filter */
+if (class_exists('Jojo_Plugin_Jojo_Newsletter') && Jojo::tableExists('newsletter_quote')) {
+    Jojo::addFilter('jojo_newslettercontent', 'newslettercontent', 'jojo_quote');
+}
 
 /* Content Filter */
 Jojo::addFilter('content', 'removesnip', 'jojo_quote');
 
 /* capture the button press in the admin section */
-Jojo::addHook('admin_action_after_save', 'admin_action_after_save', 'jojo_quote');
+Jojo::addHook('admin_action_after_save_quote', 'admin_action_after_save_quote', 'jojo_quote');
+Jojo::addHook('admin_action_after_save_page', 'admin_action_after_save_page', 'jojo_quote');
+Jojo::addHook('admin_action_after_save_quotecategory', 'admin_action_after_save_quotecategory', 'jojo_quote');
+
 
 $_options[] = array(
     'id' => 'quote_tag_cloud_minimum',

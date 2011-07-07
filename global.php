@@ -20,17 +20,11 @@
 /* Create Quotes array for sidebar based on the page language, shuffle them randomly and display as many as are set in options (default is 1)*/
 if (Jojo::getOption('quote_num_sidebar_articles') >= 1) {
 
-    $pg_language = $page->getValue('pg_language');
     $exclude = (boolean)(Jojo::getOption('quote_sidebar_exclude_current', 'no')=='yes' );
-    $quotes = Jojo_Plugin_Jojo_Quote::getItems('', '', $exclude);
+    $quotes = Jojo_Plugin_Jojo_Quote::getItems('', '', 'all', '', $exclude);
     shuffle($quotes);
     $quotes = array_slice($quotes, 0, Jojo::getOption('quote_num_sidebar_articles', 1)); 
     $smarty->assign('quotes', $quotes);
-
-
-/* Get the prefix for quotes (can vary for multiple installs) for use in the theme template instead of hard coding it */
-$smarty->assign('quoteshome', Jojo_Plugin_Jojo_Quote::_getPrefix('', $page->getValue('pg_language')) );
-
 }
 
 /** Example usage in theme template:

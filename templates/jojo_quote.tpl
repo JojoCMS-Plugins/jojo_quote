@@ -2,7 +2,7 @@
 
 {if $jojo_quote}
    <div class="quote">
-        {if $jojo_quote.qt_image}<img src="images/v60000/quotes/{$jojo_quote.qt_image}" alt="{$jojo_quote.title}" class="float-right"/>{/if}
+        {if $jojo_quote.image}<a href="{$jojo_quote.url}" title="{$jojo_quote.title}"><img src="{$SITEURL}/images/{$jojo_quote.mainimage}/{$jojo_quote.image}" class="float-right" alt="{$jojo_quote.title}" /></a>{/if}
         <div class="quotebody">{$jojo_quote.qt_body}</div>
         <div class="quotecredit" style="text-align:left">{$jojo_quote.qt_author}{if $jojo_quote.qt_designation}<br />
         {$jojo_quote.qt_designation}{/if}{if $jojo_quote.qt_company} - {if $jojo_quote.qt_weblink}<a href ="{$jojo_quote.qt_weblink}" title="{$jojo_quote.qt_company}">{/if}{$jojo_quote.qt_company}{if $jojo_quote.qt_weblink}</a>{/if}{/if}</div>
@@ -27,11 +27,15 @@
 {elseif $jojo_quotes}
     {if $pg_body && $pagenum==1}{$pg_body}{/if}
     {foreach from=$jojo_quotes item=q}
-        <h3><a href="{$q.url}" title="{$q.title}">{$q.title}</a></h3>
-        <div>
-            <p>{if $q.qt_image}<img src="images/v12000/quotes/{$q.qt_image}" alt="{$q.title}" class="float-right" />{/if}
-            {$q.body|truncate:300} - <em>{$q.qt_author}{if $q.qt_designation}, {$q.qt_designation}, {$q.qt_company}{/if}</em></p>
-            <p>{$q.description|truncate:300} <a href="{$q.url}" class="links" title="View full quote" rel="nofollow">&gt; Read more</a></p>
+        <h3 class="clear"><a href="{$q.url}" title="{$q.title}">{$q.title}</a></h3>
+        <div class="quote">
+        {if $q.image}<a href="{$q.url}" title="{$q.title}"><img src="{$SITEURL}/images/{if $q.snippet=='full'}{$q.mainimage}{else}{$q.thumbnail}{/if}/{$q.image}" class="index-thumb" alt="{$q.title}" /></a>{/if}
+        {if $q.snippet=='full'}{$q.qt_body}
+        {if $q.author}<p class="credit">{$q.author}{if $q.designation}, {$q.designation}, {$q.company}{/if}</p>{/if}
+        {else}<p>{$q.bodyplain|truncate:$q.snippet} {if $q.author}- <span class="credit">{$q.author}{if $q.designation}, {$q.designation}, {$q.company}{/if}</span><br />{/if}
+        <a href="{$q.url}" title="{$q.title}" class="more">{$q.readmore}</a></p>{/if}
+       {if $q.showdate}<div class="article-date">Added: {$q.datefriendly}</div>{/if}
+       {if $q.comments && $q.numcomments}<div class="numcomments"><img src="images/blog_comment_icon.gif" class="icon-image" />{$q.numcomments} Comment{if $q.numcomments>1}s{/if}</div>{/if}
         </div>
     {/foreach}
     <div class="article-pagination links">
