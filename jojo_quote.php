@@ -356,7 +356,7 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
             }
             $content['metadescription']  = $content['meta_description'];
             if ((boolean)(Jojo::getOption('ogdata', 'no')=='yes')) {
-                $content['ogtags']['description'] = $quote['description'];
+                $content['ogtags']['description'] = $quote['desc'];
                 $content['ogtags']['image'] = $quote['image'] ? _SITEURL .  '/images/' . ($quote['thumbnail'] ? $quote['thumbnail'] : 's150') . '/' . urlencode($quote['image']) : '';
                 $content['ogtags']['title'] = $quote['title'];
             }
