@@ -451,3 +451,20 @@ $default_fd[$table]['comments'] = array(
         'fd_tabname' => "Content",
     );
 }
+
+/* add many to many table for use by newsletter plugin if present */
+if (class_exists('Jojo_Plugin_Jojo_Newsletter')) {
+$default_fd['newsletter']['quotes'] = array(
+        'fd_name' => "Quotes To Include",
+        'fd_type' => "many2manyordered",
+        'fd_size' => "0",
+        'fd_rows' => "0",
+        'fd_cols' => "0",
+        'fd_showlabel' => "no",
+        'fd_tabname' => "2. Quotes",
+        'fd_m2m_linktable' => "newsletter_quote",
+        'fd_m2m_linkitemid' => "newsletterid",
+        'fd_m2m_linkcatid' => "quoteid",
+        'fd_m2m_cattable' => "quote",
+    );
+}
