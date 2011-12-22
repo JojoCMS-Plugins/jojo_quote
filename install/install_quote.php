@@ -36,7 +36,7 @@ $query .= "
       PRIMARY KEY  (`quoteid`),
       FULLTEXT KEY `title` (`qt_title`),
       FULLTEXT KEY `body` (`qt_title`,`qt_body`, `qt_author`, `qt_description`, `qt_designation`, `qt_company`)
-    ) TYPE=MyISAM ;";
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci  AUTO_INCREMENT=1000;";
 
 /* Convert mysql date format to unix timestamps */
 if (Jojo::tableExists($table) && Jojo::getMySQLType($table, 'qt_date') == 'date') {
@@ -90,7 +90,7 @@ if (class_exists('Jojo_Plugin_Jojo_comment')) {
 $query .= "
       PRIMARY KEY  (`quotecategoryid`),
       KEY `id` (`pageid`)
-    ) TYPE=MyISAM ;";
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;";
 
 /* Prepare for adding default category to pre-category installs  */
 $quotepage = array();
