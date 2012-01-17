@@ -520,8 +520,8 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
             $ids[$i['quotecategoryid']] = true;
         }
         /* Add quotes to sitemap */
-        foreach($quotes as $k => $a) {
-            // strip out quotes from expired pages
+        foreach($items as $k => $a) {
+            // strip out items from expired pages
             if (!isset($ids[$a['qt_category']])) {
                 unset($items[$k]);
                 continue;
