@@ -96,6 +96,7 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
             /* Strip all tags and template include code ie [[ ]] */
             $i['bodysnip'] = strpos($i['bodysnip'], '[[')!==false ? preg_replace('/\[\[.*?\]\]/', '',  $i['bodysnip']) : $i['bodysnip'];
             $i['bodyplain'] = trim(strip_tags($i['bodysnip']));
+            $i['body'] = $i['bodyplain'];
             $i['desc'] = strlen($i['bodyplain']) >400 ?  substr($mbody=wordwrap($i['bodyplain'], 400, '$$'), 0, strpos($mbody,'$$')) : $i['bodyplain'];
             $i['descriptionplain'] = strpos($i['qt_description'], '[[')!==false ? preg_replace('/\[\[.*?\]\]/', '',  $i['qt_description']) : $i['qt_description'];
             $i['descriptionplain'] = trim(strip_tags($i['descriptionplain']));
