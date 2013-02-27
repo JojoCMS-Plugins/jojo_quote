@@ -58,7 +58,7 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
     }
 
      /* get items by id - accepts either an array of ids returning a results array, or a single id returning a single result  */
-    static function getItemsById($ids = false, $sortby='qt_date desc', $include=false) {
+    public static function getItemsById($ids = false, $sortby='qt_date desc', $include=false) {
         $query  = "SELECT q.*, c.*, p.pageid, pg_menutitle, pg_title, pg_url, pg_status, pg_livedate, pg_expirydate";
         $query .= " FROM {quote} q";
         $query .= " LEFT JOIN {quotecategory} c ON (q.qt_category=c.quotecategoryid) LEFT JOIN {page} p ON (c.pageid=p.pageid)";
@@ -74,7 +74,7 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
     }
 
    /* clean items for output */
-    static function cleanItems($items, $exclude=false, $include=false) {
+    private static function cleanItems($items, $exclude=false, $include=false) {
         $now    = time();
         foreach ($items as $k=>&$i){
             $pagedata = Jojo_Plugin_Core::cleanItems(array($i), $include);
@@ -92,7 +92,8 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
             $i['company'] = htmlspecialchars($i['qt_company'], ENT_COMPAT, 'UTF-8', false);
             $i['weblink'] = $i['qt_weblink'];
             // Snip for the index description
-            $i['bodysnip'] = array_shift(Jojo::iExplode('[[snip]]', $i['qt_body']));
+            $splitcontent = Jojo::iExplode('[[snip]]', $i['qt_body']);
+            $i['bodysnip'] = array_shift($splitcontent);
             /* Strip all tags and template include code ie [[ ]] */
             $i['bodysnip'] = strpos($i['bodysnip'], '[[')!==false ? preg_replace('/\[\[.*?\]\]/', '',  $i['bodysnip']) : $i['bodysnip'];
             $i['bodyplain'] = trim(strip_tags($i['bodysnip']));
