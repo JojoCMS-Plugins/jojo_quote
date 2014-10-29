@@ -372,36 +372,21 @@ class Jojo_Plugin_Jojo_Quote extends JOJO_Plugin
             if ($pagenum[0] == 'p') {
                 $pagenum = substr($pagenum, 1);
             }
+            $smarty->assign('pagenum', $pagenum);
 
-            /* get number of quotes for pagination */
+            /* get number of items for pagination */
             $quotesperpage = Jojo::getOption('quotesperpage', 40);
             $start = ($quotesperpage * ($pagenum-1));
             $numquotes = count($quotes);
             $numpages = ceil($numquotes / $quotesperpage);
             /* calculate pagination */
-            if ($numpages == 1) {
-                $pagination = '';
-            } elseif ($numpages == 2 && $pagenum == 2) {
-                $pagination = sprintf('<a href="%s/p1/">previous...</a>', $pageprefix . self::_getPrefix($categorydata['quotecategoryid']) );
-            } elseif ($numpages == 2 && $pagenum == 1) {
-                $pagination = sprintf('<a href="%s/p2/">more...</a>', $pageprefix . self::_getPrefix($categorydata['quotecategoryid']) );
-            } else {
-                $pagination = '<ul>';
-                for ($p=1;$p<=$numpages;$p++) {
-                    $url = $pageprefix . self::_getPrefix($categorydata['quotecategoryid']) . '/';
-                    if ($p > 1) {
-                        $url .= 'p' . $p . '/';
-                    }
-                    if ($p == $pagenum) {
-                        $pagination .= '<li>&gt; Page '.$p.'</li>'. "\n";
-                    } else {
-                        $pagination .= '<li>&gt; <a href="'.$url.'">Page '.$p.'</a></li>'. "\n";
-                    }
-                }
-                $pagination .= '</ul>';
+            $pagination = '';
+            if ($numpages > 1) {
+                $smarty->assign('numpages', $numpages);
+                $smarty->assign('pageurl', $pageprefix . self::_getPrefix($categorydata['quotecategoryid']));
+                $pagination = $smarty->fetch('pagination.tpl');
             }
             $smarty->assign('pagination', $pagination);
-            $smarty->assign('pagenum', $pagenum);
 
             /* clear the meta description to avoid duplicate content issues */
             $content['metadescription'] = '';
